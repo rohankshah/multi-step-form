@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from "react";
+import React from "react";
 import { Switch } from "@headlessui/react";
 
 interface BillToggleProps {

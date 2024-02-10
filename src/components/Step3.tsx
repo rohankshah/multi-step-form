@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import NumberStepsMobile from "./NumberStepsMobile";
 import Heading from "./Heading";
 import Content from "./Content";
@@ -6,33 +6,23 @@ import NumberStepsDesktop from "./NumberStepsDesktop";
 import FooterDesktop from "./FooterDesktop";
 import AddOnSelect from "./AddOnSelect";
 
-const Step3 = () => {
-  const [selectedAddOns, setSelectedAddOns] = useState<number[]>([]);
+import { addOnOptions } from "../formdata/formData";
 
-  const addOnOptions = [
-    {
-      id: 1,
-      title: "Online Service",
-      tagline: "Access to multiplayer games",
-      valueYr: "$10/yr",
-      valueMo: "$1/mo",
-    },
-    {
-      id: 2,
-      title: "Larger Storage",
-      tagline: "Extra 1TB of storage",
-      valueYr: "$20/yr",
-      valueMo: "$2/mo",
-    },
-    {
-      id: 3,
-      title: "Customizable Profile",
-      tagline: "Custom theme on your profile",
-      valueYr: "$20/yr",
-      valueMo: "$2/mo",
-    },
-  ];
+interface Step3Props {
+  step: number;
+  setStep: (type: number | ((prev: number) => number)) => void;
+  selectedAddOns: number[];
+  setSelectedAddOns: (type: number[] | ((prev: number[]) => number[])) => void;
+  billingOption: boolean;
+}
 
+const Step3: React.FC<Step3Props> = ({
+  step,
+  setStep,
+  selectedAddOns,
+  setSelectedAddOns,
+  billingOption,
+}) => {
   function handleAddOnSelect(index: number) {
     if (selectedAddOns.includes(index)) {
       setSelectedAddOns(selectedAddOns.filter((ele) => ele !== index));
@@ -45,7 +35,7 @@ const Step3 = () => {
     <>
       {/* Mobile */}
       <div className="w-full px-5 flex flex-col items-center md:hidden">
-        <NumberStepsMobile />
+        <NumberStepsMobile step={step} />
         <div className="bg-white w-full rounded-xl mt-14 px-6 py-8">
           <div className="flex flex-col gap-2 mb-6">
             <Heading name="Pick add-ons" />
@@ -61,6 +51,7 @@ const Step3 = () => {
                     tagline={ele.tagline}
                     valueYr={ele.valueYr}
                     valueMo={ele.valueMo}
+                    billingOption={billingOption}
                   />
                 </div>
               );
@@ -74,7 +65,7 @@ const Step3 = () => {
         {/* Image and steps */}
         <div className="w-1/3 h-full rounded-xl bg-desktop bg-no-repeat bg-cover">
           <div className="flex flex-col px-8 py-10">
-            <NumberStepsDesktop />
+            <NumberStepsDesktop step={step} />
           </div>
         </div>
         <div className="w-2/3 pt-10 px-24 flex flex-col justify-between">
@@ -93,13 +84,14 @@ const Step3 = () => {
                       tagline={ele.tagline}
                       valueYr={ele.valueYr}
                       valueMo={ele.valueMo}
+                      billingOption={billingOption}
                     />
                   </div>
                 );
               })}
             </div>
           </div>
-          <FooterDesktop />
+          <FooterDesktop step={step} setStep={setStep} nextDisable={false} />
         </div>
       </div>
     </>

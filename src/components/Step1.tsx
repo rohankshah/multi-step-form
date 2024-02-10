@@ -1,23 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import NumberStepsMobile from "./NumberStepsMobile";
 import Heading from "./Heading";
 import Content from "./Content";
 import FormLabel from "./FormLabel";
 import FormInput from "./FormInput";
-import Button from "./Button";
 import NumberStepsDesktop from "./NumberStepsDesktop";
 import FooterDesktop from "./FooterDesktop";
 
-const Step1 = () => {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+interface Step1Props {
+  step: number;
+  setStep: (type: number | ((prev: number) => number)) => void;
+  name: string;
+  setName: (type: string | ((prev: string) => string)) => void;
+  email: string;
+  setEmail: (type: string | ((prev: string) => string)) => void;
+  phone: string;
+  setPhone: (type: string | ((prev: string) => string)) => void;
+}
 
+const Step1: React.FC<Step1Props> = ({
+  step,
+  setStep,
+  name,
+  setName,
+  email,
+  setEmail,
+  phone,
+  setPhone,
+}) => {
   return (
     <>
       {/* Mobile */}
       <div className="w-full px-5 flex flex-col items-center md:hidden">
-        <NumberStepsMobile />
+        <NumberStepsMobile step={step} />
         <div className="bg-white w-full rounded-xl mt-14 px-6 py-8">
           <div className="flex flex-col gap-2 mb-6">
             <Heading name="Personal Info" />
@@ -49,7 +64,7 @@ const Step1 = () => {
         {/* Image and steps */}
         <div className="w-1/3 h-full rounded-xl bg-desktop bg-no-repeat bg-cover">
           <div className="flex flex-col px-8 py-10">
-            <NumberStepsDesktop />
+            <NumberStepsDesktop step={step} />
           </div>
         </div>
         <div className="w-2/3 pt-10 px-24 flex flex-col justify-between">
@@ -77,7 +92,7 @@ const Step1 = () => {
               onChangeFunc={(e) => setPhone(e.target.value)}
             />
           </div>
-          <FooterDesktop />
+          <FooterDesktop step={step} setStep={setStep} nextDisable={false} />
         </div>
       </div>
     </>

@@ -6,6 +6,7 @@ interface AddOnSelectProps {
   tagline: string;
   valueYr: string;
   valueMo: string;
+  billingOption: boolean;
 }
 
 const AddOnSelect: React.FC<AddOnSelectProps> = ({
@@ -14,6 +15,7 @@ const AddOnSelect: React.FC<AddOnSelectProps> = ({
   tagline,
   valueYr,
   valueMo,
+  billingOption,
 }) => {
   return (
     <div
@@ -35,7 +37,9 @@ const AddOnSelect: React.FC<AddOnSelectProps> = ({
         <p className=" text-blue-marine font-bold">{title}</p>
         <p className="text-gray-cool">{tagline}</p>
       </div>
-      <p className="text-blue-purplishBlue font-semibold w-1/6">{valueYr}</p>
+      <p className="text-blue-purplishBlue font-semibold w-1/6">
+        {billingOption ? valueYr : valueMo}
+      </p>
     </div>
   );
 };

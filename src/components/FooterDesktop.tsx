@@ -1,11 +1,35 @@
 import React from "react";
 import Button from "./Button";
 
-const FooterDesktop = () => {
+interface FooterDesktopProps {
+  step: number;
+  setStep: (type: number | ((prev: number) => number)) => void;
+  nextDisable: boolean;
+}
+
+const FooterDesktop: React.FC<FooterDesktopProps> = ({
+  step,
+  setStep,
+  nextDisable,
+}) => {
   return (
-    <div className="w-full flex justify-between mb-4">
-      <button className="text-lg text-gray-cool font-semibold">Go Back</button>
-      <Button name="Next Step" />
+    <div
+      className={`w-full flex ${
+        step === 1 ? "justify-end" : "justify-between"
+      } mb-4`}
+    >
+      <button
+        onClick={() => setStep(step - 1)}
+        className={`text-lg text-gray-cool font-semibold ${
+          step === 1 && "hidden"
+        } ${step === 5 && "hidden"}`}
+      >
+        Go Back
+      </button>
+      <div onClick={() => setStep(step + 1)}>
+        {step < 4 && <Button name="Next Step" />}
+        {step === 4 && <Button name="Confirm" />}
+      </div>
     </div>
   );
 };

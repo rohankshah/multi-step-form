@@ -2,11 +2,18 @@ import React from "react";
 
 interface CircleNumberProps {
   name: string;
+  step: number;
 }
 
-const CircleNumber: React.FC<CircleNumberProps> = ({ name }) => {
+const CircleNumber: React.FC<CircleNumberProps> = ({ name, step }) => {
   return (
-    <div className="border-2 border-white rounded-full flex justify-center items-center text-white w-12 h-12 md:h-9 md:w-9">
+    <div
+      className={`border border-white rounded-full flex justify-center items-center w-12 h-12 md:h-9 md:w-9 ${
+        step === Number(name)
+          ? "text-blue-marine bg-blue-pastelBlue border-0"
+          : "text-white"
+      }`}
+    >
       {name}
     </div>
   );

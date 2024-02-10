@@ -1,13 +1,17 @@
 import React from "react";
 import CircleNumber from "./CircleNumber";
 
-const NumberStepsMobile = () => {
+interface NumberStepsMobileProps {
+  step: number;
+}
+
+const NumberStepsMobile: React.FC<NumberStepsMobileProps> = ({ step }) => {
   return (
     <div className="flex gap-4 text-white">
-      <CircleNumber name="1" />
-      <CircleNumber name="2" />
-      <CircleNumber name="3" />
-      <CircleNumber name="4" />
+      <CircleNumber name="1" step={step} />
+      <CircleNumber name="2" step={step} />
+      <CircleNumber name="3" step={step} />
+      <CircleNumber name="4" step={step} />
     </div>
   );
 };

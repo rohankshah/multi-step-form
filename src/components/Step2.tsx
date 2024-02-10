@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import NumberStepsMobile from "./NumberStepsMobile";
 import Heading from "./Heading";
@@ -8,21 +8,30 @@ import SelectPlan from "./SelectPlan";
 import BillToggle from "./BillToggle";
 import FooterDesktop from "./FooterDesktop";
 
-const Step2 = () => {
-  const [billingOption, setBillingOption] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState(-1);
+import { planOptions } from "../formdata/formData";
 
-  const planOptions = [
-    { icon: "arcade", value: "$9/mo", valueAlt: "$90/yr" },
-    { icon: "advanced", value: "$12/mo", valueAlt: "$120/yr" },
-    { icon: "pro", value: "$15/mo", valueAlt: "$150/yr" },
-  ];
+interface Step2Props {
+  step: number;
+  setStep: (type: number | ((prev: number) => number)) => void;
+  billingOption: boolean;
+  setBillingOption: (type: boolean | ((prev: boolean) => boolean)) => void;
+  selectedPlan: number;
+  setSelectedPlan: (type: number | ((prev: number) => number)) => void;
+}
 
+const Step2: React.FC<Step2Props> = ({
+  step,
+  setStep,
+  billingOption,
+  setBillingOption,
+  selectedPlan,
+  setSelectedPlan,
+}) => {
   return (
     <>
       {/* Mobile */}
       <div className="w-full px-5 flex flex-col items-center md:hidden">
-        <NumberStepsMobile />
+        <NumberStepsMobile step={step} />
         <div className="bg-white w-full rounded-xl mt-14 px-6 py-8">
           <div className="flex flex-col gap-2 mb-8">
             <Heading name="Select Your Plan" />
@@ -55,7 +64,7 @@ const Step2 = () => {
         {/* Image and steps */}
         <div className="w-1/3 h-full rounded-xl bg-desktop bg-no-repeat bg-cover">
           <div className="flex flex-col px-8 py-10">
-            <NumberStepsDesktop />
+            <NumberStepsDesktop step={step} />
           </div>
         </div>
         <div className="w-2/3 pt-10 px-24 flex flex-col justify-between">
@@ -84,7 +93,11 @@ const Step2 = () => {
               setBillingOption={setBillingOption}
             />
           </div>
-          <FooterDesktop />
+          <FooterDesktop
+            step={step}
+            setStep={setStep}
+            nextDisable={selectedPlan === 1}
+          />
         </div>
       </div>
     </>
