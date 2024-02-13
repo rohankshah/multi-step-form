@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "./Button";
 
 interface FooterDesktopProps {
@@ -12,6 +12,10 @@ const FooterDesktop: React.FC<FooterDesktopProps> = ({
   setStep,
   nextDisable,
 }) => {
+  useEffect(() => {
+    console.log(nextDisable);
+  }, [nextDisable]);
+
   return (
     <div
       className={`w-full flex ${
@@ -26,7 +30,10 @@ const FooterDesktop: React.FC<FooterDesktopProps> = ({
       >
         Go Back
       </button>
-      <div onClick={() => setStep(step + 1)}>
+      <div
+        onClick={() => setStep(step + 1)}
+        className={`${nextDisable && "pointer-events-none"}`}
+      >
         {step < 4 && <Button name="Next Step" />}
         {step === 4 && <Button name="Confirm" />}
       </div>

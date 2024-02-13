@@ -96,7 +96,7 @@ const Step2: React.FC<Step2Props> = ({
           <FooterDesktop
             step={step}
             setStep={setStep}
-            nextDisable={selectedPlan === 1}
+            nextDisable={selectedPlan === -1}
           />
         </div>
       </div>

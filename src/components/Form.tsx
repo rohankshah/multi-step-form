@@ -21,6 +21,21 @@ const Form = () => {
     console.log(name, email, phone);
   }, [name, email, phone]);
 
+  function computerNextDisabed() {
+    if (step === 2) {
+      if (selectedPlan === -1) {
+        return true;
+      }
+    } else if (step === 3) {
+      if (selectedAddOns.length === 0) {
+        return true;
+      }
+    } else {
+      return false;
+    }
+    return false;
+  }
+
   return (
     <div className="flex flex-col justify-between items-center pt-14 bg-[#f0f6ff] min-h-screen bg-no-repeat bg-top bg-mobile bg-full md:bg-none md:pt-0">
       {step === 1 && (
@@ -63,7 +78,11 @@ const Form = () => {
           selectedAddOns={selectedAddOns}
         />
       )}
-      <Footer step={step} setStep={setStep} />
+      <Footer
+        step={step}
+        setStep={setStep}
+        nextDisable={computerNextDisabed()}
+      />
     </div>
   );
 };

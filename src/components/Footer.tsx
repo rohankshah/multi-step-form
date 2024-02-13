@@ -4,9 +4,10 @@ import Button from "./Button";
 interface FooterProps {
   step: number;
   setStep: (type: number | ((prev: number) => number)) => void;
+  nextDisable: boolean;
 }
 
-const Footer: React.FC<FooterProps> = ({ step, setStep }) => {
+const Footer: React.FC<FooterProps> = ({ step, setStep, nextDisable }) => {
   return (
     <div
       className={`bg-white text-black h-20 w-full md:hidden flex justify-end items-center px-4 text-lg ${
@@ -21,7 +22,10 @@ const Footer: React.FC<FooterProps> = ({ step, setStep }) => {
       >
         Go Back
       </button>
-      <div onClick={() => setStep(step + 1)}>
+      <div
+        onClick={() => setStep(step + 1)}
+        className={`${nextDisable && "pointer-events-none"}`}
+      >
         {step < 4 && <Button name="Next Step" />}
         {step === 4 && <Button name="Confirm" />}
       </div>

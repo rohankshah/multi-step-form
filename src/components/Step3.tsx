@@ -91,7 +91,11 @@ const Step3: React.FC<Step3Props> = ({
               })}
             </div>
           </div>
-          <FooterDesktop step={step} setStep={setStep} nextDisable={false} />
+          <FooterDesktop
+            step={step}
+            setStep={setStep}
+            nextDisable={selectedAddOns.length === 0}
+          />
         </div>
       </div>
     </>
